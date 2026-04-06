@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Tripzy Tours</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        :root {
+            --sidebar-width: 260px;
+        }
+
+        body {
+            background-color: #f4f7f6;
+        }
+
+        .sidebar {
+            width: var(--sidebar-width);
+            height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            background: #2c3e50;
+            color: white;
+            z-index: 1000;
+            transition: all 0.3s;
+        }
+
+        .main-content {
+            margin-left: var(--sidebar-width);
+            padding: 30px;
+            transition: all 0.3s;
+        }
+
+        .nav-link {
+            color: rgba(255, 255, 255, 0.7);
+            padding: 12px 20px;
+            border-radius: 0;
+            border-left: 4px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: white;
+            background: rgba(255, 255, 255, 0.1);
+            border-left-color: var(--primary-color);
+        }
+
+        .nav-link i {
+            width: 25px;
+        }
+
+        .stat-card {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .table-container {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .status-badge {
+            padding: 5px 12px;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="sidebar d-flex flex-column">
+        <div class="sidebar-header p-4 text-center">
+            <h4 class="fw-bold mb-0">Tripzy Admin</h4>
+            <small class="text-info fw-bold" style="letter-spacing: 1px;">MANAGEMENT CONSOLE</small>
+        </div>
+        <div class="nav flex-column mt-3">
+            <a href="#" class="nav-link active" onclick="showView('dashboard')"><i class="fas fa-chart-line"></i>
+                Dashboard</a>
+            <a href="#" class="nav-link" onclick="showView('bookings')"><i class="fas fa-calendar-check"></i>
+                Bookings</a>
+            <a href="#" class="nav-link" onclick="showView('destinations')"><i class="fas fa-map-marked-alt"></i>
+                Destinations</a>
+            <a href="#" class="nav-link" onclick="showView('hotels')"><i class="fas fa-hotel"></i>
+                Hotels</a>
+            <a href="#" class="nav-link" onclick="showView('users')"><i class="fas fa-users"></i> User Accounts</a>
+            <a href="#" class="nav-link d-flex align-items-center" onclick="showView('messages')">
+                <i class="fas fa-envelope"></i> <span>Messages</span>
+                <span id="msgBadge" class="badge bg-danger rounded-pill ms-auto d-none">0</span>
+            </a>
+            <hr class="mx-3 opacity-25">
+            <a href="index.html"
+                class="nav-link mt-4 text-primary fw-bold border border-primary rounded-pill mx-3 text-center mb-3">
+                <i class="fas fa-external-link-alt"></i> View Website
+            </a>
+            <a href="#" class="nav-link text-danger" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 id="viewTitle" class="fw-bold">Executive Dashboard</h2>
+            <div id="userProfile" class="d-flex align-items-center">
+                <span class="me-3 fw-semibold">Admin User</span>
+                <img src="https://ui-avatars.com/api/?name=Admin&background=008080&color=fff" class="rounded-circle"
+                    width="40">
+            </div>
+        </div>
+
+        <div id="dashboardView" class="view-section">
+            <div class="row g-4 mb-4">
+                <div class="col-md-3">
+                    <div class="card stat-card p-3">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h6 class="text-muted mb-1">Total Bookings</h6>
+                                <h3 class="fw-bold mb-0" id="totalBookings">0</h3>
+                            </div>
+                            <div class="bg-soft-primary p-3 rounded-circle" style="background: rgba(0,128,128,0.1)">
+                                <i class="fas fa-suitcase fa-2x text-primary"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card stat-card p-3">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h6 class="text-muted mb-1">Revenue</h6>
+                                <h3 class="fw-bold mb-0" id="totalRevenue">₹0</h3>
+                            </div>
+                            <div class="bg-soft-success p-3 rounded-circle" style="background: rgba(40,167,69,0.1)">
+                                <i class="fas fa-wallet fa-2x text-success"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card stat-card p-3">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h6 class="text-muted mb-1">Total Users</h6>
+                                <h3 class="fw-bold mb-0" id="totalUsersStat">0</h3>
+                            </div>
+                            <div class="bg-soft-info p-3 rounded-circle" style="background: rgba(23,162,184,0.1)">
+                                <i class="fas fa-users fa-2x text-info"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card stat-card p-3">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h6 class="text-muted mb-1">Active Trips</h6>
+                                <h3 class="fw-bold mb-0" id="activeTrips">0</h3>
+                            </div>
+                            <div class="bg-soft-warning p-3 rounded-circle" style="background: rgba(255,193,7,0.1)">
+                                <i class="fas fa-plane-departure fa-2x text-warning"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="table-container">
+                        <h5 class="fw-bold mb-4">Recent Bookings</h5>
+                        <div class="table-responsive">
+                            <table class="table table-hover align-middle">
+                                <thead class="bg-light">
+                                    <tr>
+                                        <th>User</th>
+                                        <th>Destination</th>
+                                        <th>Date</th>
+                                        <th>Amount</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="recentBookingsTable">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="table-container">
+                        <h5 class="fw-bold mb-4">Quick Stats</h5>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                                International Trips <span class="badge bg-primary rounded-pill" id="intlCount">0</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                                Domestic Trips <span class="badge bg-info rounded-pill" id="domCount">0</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                                Hotel Bookings <span class="badge bg-success rounded-pill" id="hotelCount">0</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                                New Messages <span class="badge bg-warning text-dark rounded-pill"
+                                    id="newMsgCount">0</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="bookingsView" class="view-section d-none">
+            <div class="table-container">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h5 class="fw-bold mb-0">Complete Booking Registry</h5>
+                    <div class="input-group w-25">
+                        <input type="text" class="form-control form-control-sm" placeholder="Search booking ID..."
+                            id="bookingSearch">
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle">
+                        <thead class="bg-light">
+                            <tr>
+                                <th>Booking ID</th>
+                                <th>Client</th>
+                                <th>Trip Details</th>
+                                <th>Date</th>
+                                <th>Total Paid</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="allBookingsTable">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div id="destinationsView" class="view-section d-none">
+            <div class="table-container">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h5 class="fw-bold mb-0">Package & Destination Management</h5>
+                    <button class="btn btn-primary rounded-pill btn-sm px-3" onclick="openAddDestinationModal()">
+                        <i class="fas fa-plus me-2"></i>Add Package
+                    </button>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle">
+                        <thead class="bg-light">
+                            <tr>
+                                <th>Preview</th>
+                                <th>Package Name</th>
+                                <th>Category</th>
+                                <th>Price</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="adminDestinationsTable">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div id="hotelsView" class="view-section d-none">
+            <div class="table-container">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h5 class="fw-bold mb-0">Hotel & Property Management</h5>
+                    <button class="btn btn-primary rounded-pill btn-sm px-3" onclick="openAddHotelModal()">
+                        <i class="fas fa-plus me-2"></i>Add Hotel
+                    </button>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle">
+                        <thead class="bg-light">
+                            <tr>
+                                <th>Preview</th>
+                                <th>Hotel Name</th>
+                                <th>Location</th>
+                                <th>Base Price</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="adminHotelsTable">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div id="usersView" class="view-section d-none">
+            <div class="table-container">
+                <h5 class="fw-bold mb-4">Registered Accounts</h5>
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle">
+                        <thead class="bg-light">
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Joined Date</th>
+                                <th>Role</th>
+                            </tr>
+                        </thead>
+                        <tbody id="allUsersTable">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div id="messagesView" class="view-section d-none">
+            <div class="table-container">
+                <h5 class="fw-bold mb-4">Contact Form Submissons (User Reviews)</h5>
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle">
+                        <thead class="bg-light">
+                            <tr>
+                                <th>Timestamp</th>
+                                <th>User</th>
+                                <th>Email</th>
+                                <th>Message</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="adminMessagesTable">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="destModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content border-0">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title" id="destModalTitle">Add New Package</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <form id="destForm">
+                    <div class="modal-body p-4">
+                        <input type="hidden" id="destId">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label small fw-bold">Package Name</label>
+                                <input type="text" class="form-control" id="destName" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label small fw-bold">Price (₹)</label>
+                                <input type="number" class="form-control" id="destPrice" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label small fw-bold">Duration (Days)</label>
+                                <input type="number" class="form-control" id="destDuration" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label small fw-bold">Category</label>
+                                <select class="form-select" id="destCategory">
+                                    <option value="nature">Nature</option>
+                                    <option value="beach">Beach</option>
+                                    <option value="city">City</option>
+                                    <option value="culture">Culture</option>
+                                    <option value="adventure">Adventure</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label small fw-bold">Type</label>
+                                <select class="form-select" id="destType">
+                                    <option value="international">International</option>
+                                    <option value="domestic">Domestic</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label small fw-bold">Image URL</label>
+                                <input type="url" class="form-control" id="destImage" required>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label small fw-bold">Description</label>
+                                <textarea class="form-control" id="destDescription" rows="3" required></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary px-4">Save Package</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div id="adminToast" class="toast align-items-center text-white bg-primary border-0" role="alert">
+            <div class="d-flex">
+                <div class="toast-body" id="adminToastMessage">Notification message</div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="modal"></button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="hotelModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content border-0">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title" id="hotelModalTitle">Add New Hotel</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <form id="hotelForm" onsubmit="handleHotelSubmit(event)">
+                    <div class="modal-body p-4">
+                        <input type="hidden" id="hotelId">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label small fw-bold">Hotel Name</label>
+                                <input type="text" class="form-control" id="hotelName" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label small fw-bold">Location</label>
+                                <input type="text" class="form-control" id="hotelLocation" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label small fw-bold">Price per Night (₹)</label>
+                                <input type="number" class="form-control" id="hotelPrice" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label small fw-bold">Image URL</label>
+                                <input type="url" class="form-control" id="hotelImage" required>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label small fw-bold">Description</label>
+                                <textarea class="form-control" id="hotelDescription" rows="3" required></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary px-4">Save Hotel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="deleteConfirmModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow-lg" style="border-radius: 20px;">
+                <div class="modal-body text-center p-5">
+                    <div class="mb-4 text-danger">
+                        <i class="fas fa-exclamation-triangle fa-4x animate__animated animate__shakeX"></i>
+                    </div>
+                    <h3 class="fw-bold mb-3">Are you sure?</h3>
+                    <p class="text-muted mb-4" id="deleteConfirmText">This action cannot be undone. This item will be
+                        permanently removed from the website.</p>
+                    <div class="d-grid gap-2">
+                        <button type="button" class="btn btn-danger py-3 fw-bold rounded-pill"
+                            id="confirmDeleteBtn">Yes, Delete Permanently</button>
+                        <button type="button" class="btn btn-light py-3 fw-bold rounded-pill"
+                            data-bs-dismiss="modal">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="new1.js"></script>
+    <script src="admin.js"></script>
+</body>
+
+</html>
+

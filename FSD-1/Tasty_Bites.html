@@ -1,0 +1,1274 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tripzy - Tasty Bites</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Poppins:wght@500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        :root {
+            --primary-color: #008080;
+            --secondary-color: #FF7F50;
+            --accent-color: #FFD700;
+            --text-dark: #333333;
+            --text-light: #f4f4f4;
+            --bg-light: #f9f9f9;
+            --card-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+            --hover-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background: radial-gradient(circle at top left, #fdfbfb 0%, #ebedee 100%);
+            color: var(--text-dark);
+            margin: 0;
+            padding: 0;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: radial-gradient(var(--primary-color) 0.5px, transparent 0.5px);
+            background-size: 30px 30px;
+            opacity: 0.03;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+        }
+
+        header {
+            background-color: gray;
+            padding: 15px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        header h4 {
+            color: var(--primary-color);
+            margin: 0;
+            font-size: 1.5rem;
+        }
+
+        header h4 i {
+            color: var(--secondary-color);
+        }
+
+        .nav-link {
+            color: var(--text-dark) !important;
+            font-weight: 600;
+            margin: 0 15px;
+            transition: 0.3s;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--primary-color) !important;
+        }
+
+        .hero-section {
+            padding: 100px 0;
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1500&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .menu-grid {
+            padding: 80px 0;
+            background-color: #f0f8f8;
+            border-top: 1px solid rgba(0, 128, 128, 0.05);
+            border-bottom: 1px solid rgba(0, 128, 128, 0.05);
+        }
+
+        .menu-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            transition: 0.4s;
+            height: 100%;
+            border: none;
+            margin-bottom: 30px;
+        }
+
+        .menu-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: var(--hover-shadow);
+        }
+
+        .image-wrapper {
+            position: relative;
+            height: 200px;
+        }
+
+        .menu-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .menu-info {
+            padding: 25px;
+            text-align: center;
+        }
+
+        .cuisine-name {
+            font-size: 1.4rem;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .btn-menu {
+            background-color: var(--secondary-color);
+            border: none;
+            border-radius: 50px;
+            padding: 10px 30px;
+            color: white;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .btn-menu:hover {
+            background-color: #ff6347;
+            color: white;
+            transform: scale(1.05);
+        }
+
+        @keyframes gradientShift {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .reservation-section {
+            background: linear-gradient(-45deg, #008080, #3ca8a8, #FF7F50, #ff9b7a);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            padding: 120px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .reservation-section::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.02);
+            pointer-events: none;
+        }
+
+        .reservation-form {
+            background: #ffffff;
+            padding: 50px;
+            border-radius: 30px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.1);
+            border: 1px solid #eee;
+            position: relative;
+            z-index: 1;
+            transition: 0.5s;
+        }
+
+        .reservation-form:hover {
+            transform: scale(1.02);
+            background: rgba(255, 255, 255, 1);
+        }
+
+        .form-control {
+            border-radius: 10px;
+            padding: 12px;
+            border: 1px solid #ddd;
+        }
+
+        .btn-reserve {
+            background-color: var(--primary-color);
+            border: none;
+            border-radius: 50px;
+            padding: 12px;
+            color: white;
+            font-weight: 600;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .menu-item-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            border-radius: 12px;
+            margin-bottom: 8px;
+            background: rgba(255, 255, 255, 0.6);
+            transition: 0.3s;
+        }
+
+        .menu-item-row:hover {
+            background: rgba(255, 255, 255, 0.9);
+            transform: translateX(5px);
+        }
+
+        .item-details {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .item-name {
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .item-controls {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .add-btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .add-btn:hover {
+            background: var(--secondary-color);
+            transform: scale(1.1);
+        }
+
+        .order-summary-footer {
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(5px);
+            padding: 20px;
+            border-radius: 0 0 20px 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .btn-confirm-order {
+            background-color: var(--secondary-color);
+            border: none;
+            border-radius: 50px;
+            padding: 12px;
+            color: white;
+            font-weight: 600;
+            width: 100%;
+            transition: 0.3s;
+        }
+
+        .btn-confirm-order:hover:not(:disabled) {
+            background-color: #ff6347;
+            transform: translateY(-2px);
+        }
+
+        .btn-confirm-order:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .success-checkmark {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .success-checkmark i {
+            font-size: 4rem;
+            color: #4BB543;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        footer {
+            background-color: var(--text-dark);
+            color: white;
+            padding: 60px 0 30px;
+        }
+
+        footer h5 {
+            color: var(--secondary-color);
+        }
+
+        footer a {
+            color: #ccc;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        footer a:hover {
+            color: var(--primary-color);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 40px;
+            padding-top: 20px;
+            text-align: center;
+            color: #888;
+        }
+
+        .menu-item-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px dashed #ddd;
+        }
+
+        .price-badge {
+            background: var(--primary-color);
+            color: white;
+            padding: 2px 10px;
+            border-radius: 5px;
+            font-size: 0.9rem;
+        }
+
+        .section-padding {
+            padding: 80px 0;
+        }
+
+        .experience-card {
+            border-radius: 20px;
+            overflow: hidden;
+            background: white;
+            box-shadow: var(--card-shadow);
+            transition: 0.4s;
+            height: 100%;
+        }
+
+        .experience-card:hover {
+            transform: scale(1.03);
+            box-shadow: var(--hover-shadow);
+        }
+
+        .exp-image {
+            height: 200px;
+            width: 100%;
+            object-fit: cover;
+        }
+
+        .accordion-item {
+            border: none;
+            margin-bottom: 10px;
+            border-radius: 15px !important;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .accordion-button:not(.collapsed) {
+            background-color: var(--primary-color);
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h4><i class="fas fa-plane me-2"></i>TRIPZY TOURS AND TRAVELS</h4>
+        <div class="d-flex align-items-center">
+            <a href="index.html" class="text-decoration-none text-dark me-3 fw-bold">Home</a>
+            <a href="Explore1.html" class="text-decoration-none text-dark me-3 fw-bold">Explore</a>
+            <a href="Hotels_Premium.html" class="text-decoration-none text-dark me-3 fw-bold">Hotels</a>
+            <a href="Tasty_Bites.html" class="text-decoration-none text-dark me-3 fw-bold active">Dining</a>
+
+            <div class="dropdown d-none ms-3" id="userDropdown">
+                <a class="d-flex align-items-center text-dark text-decoration-none dropdown-toggle" href="#"
+                    role="button" id="userMenu" data-bs-toggle="dropdown" aria-expanded="false">
+                    <img src="https://ui-avatars.com/api/?name=User&background=random" id="userAvatar" alt="User"
+                        class="rounded-circle me-2" width="32" height="32">
+                    <span id="welcomeUser" class="fw-bold">User</span>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="userMenu">
+                    <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#profileModal"><i
+                                class="fas fa-user-circle me-2"></i> My Profile</a></li>
+                    <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#bookingsModal"
+                            onclick="loadUserBookings(false)"><i class="fas fa-edit me-2"></i> Edit Your Bookings</a>
+                    </li>
+                    <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#bookingsModal"
+                            onclick="loadUserBookings(true)"><i class="fas fa-history me-2"></i> Booking History</a>
+                    </li>
+                    <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#likedBookingsModal"
+                            onclick="loadLikedBookings()"><i class="fas fa-heart me-2 text-danger"></i> Liked
+                            Bookings</a></li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+                    <li><a class="dropdown-item" href="Explore1.html?manage=true"><i class="fas fa-tasks me-2"></i>
+                            Manage
+                            Packages</a></li>
+                    <li><a class="dropdown-item d-none" id="adminPanelLink" href="Admin.html"><i
+                                class="fas fa-user-shield me-2 text-primary"></i> Admin Panel</a></li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+                    <li><a class="dropdown-item text-danger" href="#" onclick="logout()"><i
+                                class="fas fa-sign-out-alt me-2"></i>
+                            Logout</a></li>
+                </ul>
+            </div>
+
+            <div id="authButtons" class="ms-3">
+                <a class="btn btn-primary rounded-pill px-4 me-2" id="loginBtn" data-bs-toggle="modal"
+                    data-bs-target="#loginModal">Login</a>
+                <a class="btn btn-primary rounded-pill px-4" id="signupBtn" data-bs-toggle="modal"
+                    data-bs-target="#signupModal">Sign Up</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="hero-section">
+        <div class="container" data-aos="fade-up">
+            <h1 class="hero-title">Tasty Bites</h1>
+            <p class="lead">A global culinary journey curated for the discerning palate.</p>
+        </div>
+    </div>
+
+    <section class="section-padding bg-light">
+        <div class="container">
+            <div class="row text-center mb-5">
+                <div class="col-lg-8 mx-auto" data-aos="fade-up">
+                    <h2 class="fw-bold mb-3">Signature Dining Experiences</h2>
+                    <p class="text-muted">Beyond just food—discover immersive culinary journeys created for you.</p>
+                </div>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-4" data-aos="fade-up">
+                    <div class="experience-card">
+                        <img src="https://images.unsplash.com/photo-1533777419517-3e4017e2e15a?auto=format&fit=crop&w=800&q=80"
+                            class="exp-image" alt="Rooftop">
+                        <div class="p-4">
+                            <h4>Skyline Rooftop</h4>
+                            <p class="text-muted">Dine under the stars with a panoramic 360° view of the city skyline.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="experience-card">
+                        <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=800&q=80"
+                            class="exp-image" alt="Undersea">
+                        <div class="p-4">
+                            <h4>Abyssal Dining</h4>
+                            <p class="text-muted">A breathtaking underwater experience surrounded by vibrant marine
+                                life.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="experience-card">
+                        <img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&w=800&q=80"
+                            class="exp-image" alt="Chef Table">
+                        <div class="p-4">
+                            <h4>The Chef's Atelier</h4>
+                            <p class="text-muted">An intimate 6-seat counter where the head chef cooks exclusively for
+                                you.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <main class="container menu-grid">
+        <div class="row text-center mb-5">
+            <div class="col-lg-8 mx-auto" data-aos="fade-up">
+                <h2 class="fw-bold mb-3">Global Cuisine Gallery</h2>
+                <p class="text-muted">Explore our curated selection of authentic flavors from around the world.</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 col-md-6" data-aos="fade-up">
+                <div class="menu-card">
+                    <div class="image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1589302168068-964664d93dc0?auto=format&fit=crop&w=800&q=80"
+                            class="menu-image" alt="Gujarati">
+                    </div>
+                    <div class="menu-info">
+                        <h3 class="cuisine-name">Authentic Gujarati</h3>
+                        <p class="text-muted small">Traditional flavors from the heart of Gujarat.</p>
+                        <button class="btn btn-menu" onclick="showMenu('Gujarati')">View Menu</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                <div class="menu-card">
+                    <div class="image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1626074353765-517a681e40be?auto=format&fit=crop&w=800&q=80"
+                            class="menu-image" alt="Punjabi">
+                    </div>
+                    <div class="menu-info">
+                        <h3 class="cuisine-name">North Indian Feast</h3>
+                        <p class="text-muted small">Rich and robust flavors of Punjab.</p>
+                        <button class="btn btn-menu" onclick="showMenu('Punjabi')">View Menu</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+                <div class="menu-card">
+                    <div class="image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1582878826629-29b7ad1cdc43?auto=format&fit=crop&w=800&q=80"
+                            class="menu-image" alt="Chinese">
+                    </div>
+                    <div class="menu-info">
+                        <h3 class="cuisine-name">Oriental Delights</h3>
+                        <p class="text-muted small">The essence of authentic Chinese cuisine.</p>
+                        <button class="btn btn-menu" onclick="showMenu('Chinese')">View Menu</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6" data-aos="fade-up">
+                <div class="menu-card">
+                    <div class="image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?auto=format&fit=crop&w=800&q=80"
+                            class="menu-image" alt="Italian">
+                    </div>
+                    <div class="menu-info">
+                        <h3 class="cuisine-name">Classic Italian</h3>
+                        <p class="text-muted small">Wood-fired pizzas and homemade pastas.</p>
+                        <button class="btn btn-menu" onclick="showMenu('Italian')">View Menu</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                <div class="menu-card">
+                    <div class="image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1565299585323-38d6b0865b47?auto=format&fit=crop&w=800&q=80"
+                            class="menu-image" alt="Mexican">
+                    </div>
+                    <div class="menu-info">
+                        <h3 class="cuisine-name">Fiesta Mexican</h3>
+                        <p class="text-muted small">Spicy tacos and loaded burritos.</p>
+                        <button class="btn btn-menu" onclick="showMenu('Mexican')">View Menu</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+                <div class="menu-card">
+                    <div class="image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1589301760014-d929f3979dbc?auto=format&fit=crop&w=800&q=80"
+                            class="menu-image" alt="South Indian">
+                    </div>
+                    <div class="menu-info">
+                        <h3 class="cuisine-name">South Indian Coast</h3>
+                        <p class="text-muted small">Crispy dosas and filter coffee bliss.</p>
+                        <button class="btn btn-menu" onclick="showMenu('SouthIndian')">View Menu</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6" data-aos="fade-up">
+                <div class="menu-card">
+                    <div class="image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&fit=crop&w=800&q=80"
+                            class="menu-image" alt="Thai">
+                    </div>
+                    <div class="menu-info">
+                        <h3 class="cuisine-name">Thai Sensations</h3>
+                        <p class="text-muted small">Exotic lemongrass and spicy coconut infusions.</p>
+                        <button class="btn btn-menu" onclick="showMenu('Thai')">View Menu</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                <div class="menu-card">
+                    <div class="image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1579871494447-9811cf80d66c?auto=format&fit=crop&w=800&q=80"
+                            class="menu-image" alt="Japanese">
+                    </div>
+                    <div class="menu-info">
+                        <h3 class="cuisine-name">Zen Japanese</h3>
+                        <p class="text-muted small">Fresh specialty rolls and premium sashimi.</p>
+                        <button class="btn btn-menu" onclick="showMenu('Japanese')">View Menu</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+                <div class="menu-card">
+                    <div class="image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1541518763669-27fef04b14ea?auto=format&fit=crop&w=800&q=80"
+                            class="menu-image" alt="Arabian">
+                    </div>
+                    <div class="menu-info">
+                        <h3 class="cuisine-name">Arabian Nights</h3>
+                        <p class="text-muted small">Tender kebabs and aromatic saffron rice.</p>
+                        <button class="btn btn-menu" onclick="showMenu('Arabian')">View Menu</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div class="reservation-section">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-6" data-aos="zoom-in">
+                    <div class="reservation-form">
+                        <h2 class="text-center mb-4" style="color: var(--primary-color);">Reserve Your Table</h2>
+                        <form id="contactForm">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <input type="text" class="form-control" placeholder="Your Name" required>
+                                    <div class="invalid-feedback">Your name is required.</div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <input type="email" class="form-control" placeholder="Email Address" required>
+                                    <div class="invalid-feedback">Valid email is required.</div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <input type="date" class="form-control" id="reservationDate" required>
+                                    <div class="invalid-feedback">Please select a reservation date.</div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <select class="form-select" required style="border-radius: 10px; padding: 12px;">
+                                        <option value="">Guests</option>
+                                        <option>1-2 Persons</option>
+                                        <option>3-4 Persons</option>
+                                        <option>5+ Persons</option>
+                                    </select>
+                                    <div class="invalid-feedback">Please select number of guests.</div>
+                                </div>
+                            </div>
+                            <textarea class="form-control" rows="4" placeholder="Special Requests"></textarea>
+                            <button type="submit" class="btn btn-reserve">Request Availability</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="section-padding bg-white">
+        <div class="container">
+            <div class="row text-center mb-5">
+                <div class="col-lg-8 mx-auto" data-aos="fade-up">
+                    <h2 class="fw-bold mb-3">Dining & Reservation FAQ</h2>
+                    <p class="text-muted">Have questions? We have the answers for your perfect lunch or dinner.</p>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-8" data-aos="fade-up">
+                    <div class="accordion" id="diningFaq">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#dfaq1">
+                                    Is there a dress code for the Signature Dining areas?
+                                </button>
+                            </h2>
+                            <div id="dfaq1" class="accordion-collapse collapse show" data-bs-parent="#diningFaq">
+                                <div class="accordion-body">
+                                    We recommend Smart Casual for our general dining areas. For "Skyline Rooftop" and
+                                    "Abyssal Dining", a semi-formal dress code is preferred.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#dfaq2">
+                                    How far in advance should I make a reservation?
+                                </button>
+                            </h2>
+                            <div id="dfaq2" class="accordion-collapse collapse" data-bs-parent="#diningFaq">
+                                <div class="accordion-body">
+                                    We recommend booking at least 24-48 hours in advance for weekends. For "Signature
+                                    Experiences", a 1-week lead time is advised.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#dfaq3">
+                                    Do you accommodate dietary restrictions (Vegan, Gluten-free)?
+                                </button>
+                            </h2>
+                            <div id="dfaq3" class="accordion-collapse collapse" data-bs-parent="#diningFaq">
+                                <div class="accordion-body">
+                                    Absolutely! Most of our menus have labeled Vegan and GF options. You can also
+                                    specify any allergies in the "Special Requests" box during reservation.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-dark text-white pt-5 pb-4 mt-5">
+        <div class="container text-center text-md-start">
+            <div class="row text-center text-md-start mb-4">
+                <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
+                    <h5 class="text-uppercase mb-4 font-weight-bold text-primary">Tripzy Tours</h5>
+                    <p>We provide the best travel experiences for you. Explore the world with us and make unforgettable
+                        memories.
+                    </p>
+                </div>
+                <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
+                    <h5 class="text-uppercase mb-4 font-weight-bold text-primary">Destinations</h5>
+                    <p><a href="Explore1.html?cat=nature" class="text-white" style="text-decoration: none;">Nature
+                            🌲</a></p>
+                    <p><a href="Explore1.html?cat=beach" class="text-white" style="text-decoration: none;">Beach 🏖️</a>
+                    </p>
+                    <p><a href="Explore1.html?cat=city" class="text-white" style="text-decoration: none;">City 🏙️</a>
+                    </p>
+                    <p><a href="Explore1.html?cat=culture" class="text-white" style="text-decoration: none;">Culture
+                            🏛️</a></p>
+                </div>
+                <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
+                    <h5 class="text-uppercase mb-4 font-weight-bold text-primary">Quick Links</h5>
+                    <p><a href="index.html" class="text-white" style="text-decoration: none;">Home</a></p>
+                    <p><a href="Explore1.html" class="text-white" style="text-decoration: none;">Explore Trips</a></p>
+                    <p><a href="Hotels_Premium.html" class="text-white" style="text-decoration: none;">Premium
+                            Hotels</a></p>
+                    <p><a href="Tasty_Bites.html" class="text-white" style="text-decoration: none;">Elite Dining</a></p>
+                </div>
+                <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
+                    <h5 class="text-uppercase mb-4 font-weight-bold text-primary">Legal</h5>
+                    <p><a href="PrivacyPolicy.html" class="text-white" style="text-decoration: none;">Privacy Policy</a>
+                    </p>
+                    <p><a href="T&C.html" class="text-white" style="text-decoration: none;">Terms & Conditions</a></p>
+                </div>
+                <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
+                    <h5 class="text-uppercase mb-4 font-weight-bold text-primary">Newsletter</h5>
+                    <p>Subscribe for travel updates!</p>
+                    <div class="input-group mb-3 footer-newsletter">
+                        <input type="email" id="newsletterEmail" class="form-control" placeholder="Email Address">
+                        <button class="btn btn-primary" type="button" onclick="handleNewsletterSignup()"><i
+                                class="fas fa-paper-plane"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="mb-4 opacity-25">
+
+            <div class="row text-center text-md-start align-items-center">
+                <div class="col-md-6 col-lg-6 mx-auto mt-3">
+                    <h5 class="text-uppercase mb-4 font-weight-bold text-primary">Contact Us</h5>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p><i class="fas fa-home me-3"></i> Mumbai, India</p>
+                            <p><a href="mailto:info@tripzytours.com" class="text-white"
+                                    style="text-decoration: none;"><i class="fas fa-envelope me-3"></i>
+                                    info@tripzytours.com</a></p>
+                        </div>
+                        <div class="col-md-6">
+                            <p><a href="tel:+9123456788" class="text-white" style="text-decoration: none;"><i
+                                        class="fas fa-phone me-3"></i> +91 234 567 88</a></p>
+                            <div class="mt-2">
+                                <a href="https://www.facebook.com" class="text-white me-4 text-decoration-none"><i
+                                        class="fab fa-facebook fa-lg"></i></a>
+                                <a href="https://wa.me/" class="text-white me-4 text-decoration-none"><i
+                                        class="fab fa-whatsapp fa-lg"></i></a>
+                                <a href="https://www.youtube.com" class="text-white me-4 text-decoration-none"><i
+                                        class="fab fa-youtube fa-lg"></i></a>
+                                <a href="https://www.instagram.com" class="text-white me-4 text-decoration-none"><i
+                                        class="fab fa-instagram fa-lg"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr class="mb-4">
+            <div class="row align-items-center">
+                <div class="col-md-12 text-center">
+                    <p>Copyright ©2026 All rights reserved by:
+                        <a href="index.html" style="text-decoration: none;"><strong class="text-primary">Tripzy
+                                Tours</strong></a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <div class="modal fade" id="bookingsModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"><i class="fas fa-history me-2"></i>My Booking History</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="bookingsList" class="list-group">
+                        <p class="text-center text-muted">No bookings found.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="likedBookingsModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content border-0 shadow-lg">
+                <div class="modal-header bg-danger text-white">
+                    <h5 class="modal-title fw-bold"><i class="fas fa-heart me-2"></i>My Liked Bookings</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <div id="likedBookingsList" class="list-group">
+                        <p class="text-center text-muted">No liked destinations found.</p>
+                    </div>
+                </div>
+                <div class="modal-footer border-0">
+                    <button type="button" class="btn btn-secondary rounded-pill px-4"
+                        data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="menuModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content"
+                style="border-radius: 20px; border: none; box-shadow: 0 20px 40px rgba(0,0,0,0.2); background: linear-gradient(135deg, #fff9f0 0%, #fff0e6 100%);">
+                <div class="modal-header border-0"
+                    style="background: rgba(255, 255, 255, 0.3); backdrop-filter: blur(5px); border-radius: 20px 20px 0 0;">
+                    <h5 class="modal-title h4" id="menuTitle" style="color: var(--primary-color); font-weight: 700;">
+                        Menu</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <div id="menuContent">
+                        <div id="menuItemsContainer"></div>
+                    </div>
+                    <div id="orderSuccess" class="success-checkmark">
+                        <i class="fas fa-check-circle"></i>
+                        <h4>Order Confirmed!</h4>
+                        <p>Our chefs are preparing your delicious feast.</p>
+                    </div>
+                </div>
+                <div class="order-summary-footer" id="orderFooter">
+                    <div class="total-row">
+                        <span>Grand Total:</span>
+                        <span id="orderTotal">₹0</span>
+                    </div>
+                    <button class="btn btn-confirm-order" id="confirmOrderBtn" onclick="placeOrder()" disabled>
+                        Confirm My Feast
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="resConfirmModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content text-center p-4" style="border-radius: 25px; border: none;">
+                <div class="modal-body">
+                    <div class="mb-4">
+                        <i class="fas fa-utensils fa-3x" style="color: var(--primary-color);"></i>
+                    </div>
+                    <h2 class="mb-3" style="color: var(--primary-color); font-weight: 700;">Table Assigned!</h2>
+                    <p class="lead mb-4">Hello <span id="resName" class="fw-bold">Guest</span>, your table is ready.</p>
+
+                    <div class="p-3 mb-4"
+                        style="background: #f8f9fa; border-radius: 15px; border: 2px dashed var(--primary-color);">
+                        <p class="mb-1 text-muted text-uppercase small">Your Private Table ID</p>
+                        <h1 class="display-4 fw-bold mb-0" id="tableIdDisplay" style="color: var(--secondary-color);">
+                            TB-000</h1>
+                    </div>
+
+                    <div class="row text-start mb-4">
+                        <div class="col-6">
+                            <p class="small text-muted mb-0">Date</p>
+                            <p class="fw-bold" id="resDateDisplay">--/--/----</p>
+                        </div>
+                        <div class="col-6">
+                            <p class="small text-muted mb-0">Status</p>
+                            <p class="fw-bold text-success"><i class="fas fa-check-circle me-1"></i> Confirmed</p>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-reserve" data-bs-dismiss="modal">Great, See You There!</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="loginModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Login to Your Account</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="loginForm">
+                        <div class="mb-3">
+                            <label for="loginEmail" class="form-label">Email</label>
+                            <input type="email" id="loginEmail" class="form-control" placeholder="Enter your email"
+                                required>
+                            <div class="invalid-feedback">Please enter a valid email address.</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="loginPassword" class="form-label">Password</label>
+                            <input type="password" id="loginPassword" class="form-control"
+                                placeholder="Enter your password" required>
+                            <div class="invalid-feedback">Please enter your password.</div>
+                        </div>
+                        <div id="loginOtpSection" class="mb-3 d-none">
+                            <label for="loginOtp" class="form-label">Enter 6-Digit OTP</label>
+                            <input type="text" id="loginOtp" class="form-control" placeholder="000000" maxlength="6">
+                            <small class="text-info">Demo Mode: Check notifications for OTP</small>
+                        </div>
+                        <div class="d-flex gap-2">
+                            <button type="button" id="sendLoginOtpBtn" class="btn btn-primary w-100"
+                                onclick="handleSendOTP('login')">Send OTP</button>
+                            <button type="submit" id="loginSubmitBtn" class="btn btn-primary w-100 d-none">Verify &
+                                Login</button>
+                        </div>
+                    </form>
+                    <div class="mt-3 text-center">
+                        <p>Don't have an account? <a href="#" data-bs-dismiss="modal" data-bs-toggle="modal"
+                                data-bs-target="#signupModal">Sign Up</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="signupModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Create New Account</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="signupForm">
+                        <div class="mb-3">
+                            <label for="signupName" class="form-label">Full Name</label>
+                            <input type="text" id="signupName" class="form-control" placeholder="Enter your full name"
+                                required>
+                            <div class="invalid-feedback">Please enter your full name.</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="signupEmail" class="form-label">Email</label>
+                            <input type="email" id="signupEmail" class="form-control" placeholder="Enter your email"
+                                required>
+                            <div class="invalid-feedback">Email must be a valid @gmail.com address.</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="signupPhone" class="form-label">Mobile Number</label>
+                            <input type="tel" id="signupPhone" class="form-control"
+                                placeholder="Enter your mobile number" required>
+                            <div class="invalid-feedback">Mobile number must be exactly 10 digits.</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="signupDob" class="form-label">Date of Birth</label>
+                            <input type="date" id="signupDob" class="form-control" required>
+                            <div class="invalid-feedback">Date of birth is required.</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="signupGender" class="form-label">Gender</label>
+                            <select id="signupGender" class="form-select" required>
+                                <option value="" selected disabled>Select Gender</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                                <option value="Other">Other</option>
+                            </select>
+                            <div class="invalid-feedback">Please select your gender.</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="signupPassword" class="form-label">Password</label>
+                            <input type="password" id="signupPassword" class="form-control"
+                                placeholder="Create a password" required>
+                            <div class="invalid-feedback">Password must start with specific rules (see criteria
+                                below).</div>
+                            <small class="text-muted" id="passwordHelp">Password must be >8 chars, start with Uppercase,
+                                contain 1 digit & 1 special char.</small>
+                        </div>
+                        <div class="mb-3">
+                            <label for="signupConfirmPassword" class="form-label">Confirm Password</label>
+                            <input type="password" id="signupConfirmPassword" class="form-control"
+                                placeholder="Confirm your password" required>
+                            <div class="invalid-feedback">Passwords do not match.</div>
+                        </div>
+                        <div id="signupOtpSection" class="mb-3 d-none">
+                            <label for="signupOtp" class="form-label">Enter 6-Digit OTP</label>
+                            <input type="text" id="signupOtp" class="form-control" placeholder="000000" maxlength="6">
+                            <small class="text-info">Demo Mode: Check notifications for OTP</small>
+                        </div>
+                        <div class="d-flex gap-2">
+                            <button type="button" id="sendSignupOtpBtn" class="btn btn-primary w-100"
+                                onclick="handleSendOTP('signup')">Send OTP</button>
+                            <button type="submit" id="signupSubmitBtn" class="btn btn-primary w-100 d-none">Verify &
+                                Create Account</button>
+                        </div>
+                    </form>
+                    <div class="mt-3 text-center">
+                        <p>Already have an account? <a href="#" data-bs-dismiss="modal" data-bs-toggle="modal"
+                                data-bs-target="#loginModal">Login</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="profileModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow-lg" style="border-radius: 25px;">
+                <div class="modal-header bg-primary text-white" style="border-radius: 25px 25px 0 0;">
+                    <h5 class="modal-title fw-bold"><i class="fas fa-user-circle me-2"></i>My Profile</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body text-center p-4">
+                    <img src="https://ui-avatars.com/api/?name=User&background=random" id="profileModalAvatar"
+                        alt="User" class="rounded-circle border border-4 border-white shadow-sm mb-3" width="100"
+                        height="100">
+                    <h3 id="profileName" class="fw-bold mb-1">User Name</h3>
+                    <p class="text-muted mb-4" id="profileEmail">user@example.com</p>
+
+                    <div class="row text-start g-3 mb-4">
+                        <div class="col-6">
+                            <label class="small text-uppercase fw-bold text-muted">Mobile Number</label>
+                            <p id="profilePhone" class="mb-0 fw-medium">+91-XXXXXXXXXX</p>
+                        </div>
+                        <div class="col-6">
+                            <label class="small text-uppercase fw-bold text-muted">Date of Birth</label>
+                            <p id="profileDob" class="mb-0 fw-medium">DD/MM/YYYY</p>
+                        </div>
+                        <div class="col-6">
+                            <label class="small text-uppercase fw-bold text-muted">Gender</label>
+                            <p id="profileGender" class="mb-0 fw-medium">Not provided</p>
+                        </div>
+                    </div>
+
+                    <div class="d-grid gap-2 mt-4">
+                        <button class="btn btn-outline-primary rounded-pill mb-2" data-bs-toggle="modal"
+                            data-bs-target="#bookingsModal" onclick="loadUserBookings(false)">Edit Your
+                            Bookings</button>
+                        <button class="btn btn-outline-secondary rounded-pill mb-2" data-bs-toggle="modal"
+                            data-bs-target="#bookingsModal" onclick="loadUserBookings(true)">Booking History</button>
+                        <button class="btn btn-danger w-100 rounded-pill" onclick="logout()">Logout</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="bookingsModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content" style="border-radius: 20px;">
+                <div class="modal-header">
+                    <h5 class="modal-title fw-bold"><i class="fas fa-history me-2"></i>My Booking History</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="bookingsList" class="list-group">
+                        <p class="text-center text-muted">No bookings found.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="DataStructures.js"></script>
+    <script src="new1.js"></script>
+    <script>
+        if (performance.getEntriesByType('navigation')[0].type === 'reload') {
+            window.location.href = 'index.html';
+        }
+
+        const menuData = {
+            'Gujarati': { title: 'Authentic Gujarati Thali', items: [{ name: 'Full Deluxe Thali', price: 350 }, { name: 'Dhokla Platter', price: 120 }, { name: 'Thepla & Chundo', price: 140 }] },
+            'Punjabi': { title: 'Robust Punjabi Feast', items: [{ name: 'Dal Makhani Special', price: 280 }, { name: 'Paneer Butter Masala', price: 320 }, { name: 'Butter Chicken', price: 450 }] },
+            'Chinese': { title: 'Oriental Delights', items: [{ name: 'Schezwan Noodles', price: 220 }, { name: 'Veg Manchurian', price: 200 }, { name: 'Kung Pao Paneer', price: 280 }] },
+            'Mexican': { title: 'Fiesta Mexican', items: [{ name: 'Soft Tacos', price: 280 }, { name: 'Loaded Burrito', price: 320 }, { name: 'Cheesy Nachos', price: 180 }] },
+            'Italian': { title: 'Classic Italian', items: [{ name: 'Margherita Pizza', price: 350 }, { name: 'Penne Arrabbiata', price: 320 }, { name: 'Tiramisu', price: 250 }] },
+            'SouthIndian': { title: 'Coastal South Indian', items: [{ name: 'Masala Dosa', price: 150 }, { name: 'Vada & Sambhar', price: 120 }, { name: 'Filter Coffee', price: 60 }] },
+            'Thai': { title: 'Thai Sensations', items: [{ name: 'Pad Thai Noodles', price: 280 }, { name: 'Tom Yum Soup', price: 220 }, { name: 'Green Curry', price: 350 }] },
+            'Japanese': { title: 'Zen Japanese', items: [{ name: 'Dragon Roll', price: 450 }, { name: 'Miso Soup', price: 180 }, { name: 'Chicken Teriyaki', price: 380 }] },
+            'Arabian': { title: 'Arabian Nights', items: [{ name: 'Lamb Shawarma', price: 320 }, { name: 'Hummus & Pita', price: 180 }, { name: 'Mixed Grill Platter', price: 550 }] }
+        };
+
+        let currentCart = [];
+        let menuModal;
+
+        function showMenu(cuisine) {
+            currentCart = [];
+            const data = menuData[cuisine];
+            document.getElementById('menuTitle').textContent = data.title;
+            const container = document.getElementById('menuItemsContainer');
+
+            document.getElementById('menuContent').style.display = 'block';
+            document.getElementById('orderSuccess').style.display = 'none';
+            document.getElementById('orderFooter').style.display = 'block';
+
+            container.innerHTML = data.items.map((item, index) => `
+                <div class="menu-item-row">
+                    <div class="item-details">
+                        <span class="item-name">${item.name}</span>
+                        <span class="text-muted small">₹${item.price}</span>
+                    </div>
+                    <div class="item-controls">
+                        <button class="add-btn" onclick="addToOrder('${cuisine}', ${index})">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+
+            updateOrderSummary();
+            menuModal = new bootstrap.Modal(document.getElementById('menuModal'));
+            menuModal.show();
+        }
+
+        function addToOrder(cuisine, index) {
+            const item = menuData[cuisine].items[index];
+            currentCart.push(item);
+
+            const btn = event.currentTarget;
+            const originalIcon = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-check"></i>';
+            btn.style.background = '#4BB543';
+            setTimeout(() => {
+                btn.innerHTML = originalIcon;
+                btn.style.background = 'var(--primary-color)';
+            }, 600);
+
+            updateOrderSummary();
+        }
+
+        function updateOrderSummary() {
+            const total = currentCart.reduce((sum, item) => sum + item.price, 0);
+            document.getElementById('orderTotal').textContent = `₹${total}`;
+            const confirmBtn = document.getElementById('confirmOrderBtn');
+            confirmBtn.disabled = currentCart.length === 0;
+            confirmBtn.textContent = currentCart.length === 0 ? 'Select Dishes' : `Confirm Order (${currentCart.length} Items)`;
+        }
+
+        function placeOrder() {
+            const btn = document.getElementById('confirmOrderBtn');
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Processing...';
+
+            setTimeout(() => {
+                document.getElementById('menuContent').style.display = 'none';
+                document.getElementById('orderFooter').style.display = 'none';
+                document.getElementById('orderSuccess').style.display = 'block';
+
+                setTimeout(() => {
+                    const modalEl = document.getElementById('menuModal');
+                    const modal = bootstrap.Modal.getInstance(modalEl);
+                    modal.hide();
+                }, 2500);
+            }, 1500);
+        }
+
+        if (typeof AOS !== 'undefined') {
+            AOS.init({ duration: 800, once: true });
+        }
+
+        window.addEventListener('load', () => {
+            const dateInput = document.getElementById('reservationDate');
+            if (dateInput) {
+                const today = new Date().toISOString().split('T')[0];
+                dateInput.setAttribute('min', today);
+                dateInput.value = today;
+            }
+        });
+
+        document.getElementById('contactForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const name = this.querySelector('input[type="text"]').value;
+            const email = this.querySelector('input[type="email"]').value;
+            const date = document.getElementById('reservationDate').value;
+            const msg = this.querySelector('textarea').value || 'Table Reservation Request';
+
+            // Save to LocalStorage for Admin Panel
+            const messages = JSON.parse(localStorage.getItem('contactMessages') || '[]');
+            messages.push({
+                name: name,
+                email: email,
+                message: `Reservation [${date}]: ${msg}`,
+                timestamp: new Date().toLocaleString()
+            });
+            localStorage.setItem('contactMessages', JSON.stringify(messages)); // Save
+
+            const randomId = Math.floor(100 + Math.random() * 900);
+            const tableId = `TB-${randomId}`;
+
+            document.getElementById('resName').textContent = name;
+            document.getElementById('resDateDisplay').textContent = new Date(date).toLocaleDateString();
+            document.getElementById('tableIdDisplay').textContent = tableId;
+
+            const resConfirmModal = new bootstrap.Modal(document.getElementById('resConfirmModal'));
+            resConfirmModal.show();
+
+            this.reset();
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('reservationDate').value = today;
+        });
+    </script>
+</body>
+
+</html>
